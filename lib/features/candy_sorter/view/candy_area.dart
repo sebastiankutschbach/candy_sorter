@@ -20,8 +20,14 @@ class CandyArea extends StatelessWidget {
               Positioned(
                 top: candy.top,
                 left: candy.left,
-                child: CandyWidget(
-                  candy: candy,
+                child: Draggable(
+                  feedback: CandyWidget(
+                    candy: candy,
+                  ),
+                  child: CandyWidget(
+                    candy: candy,
+                  ),
+                  childWhenDragging: Container(),
                 ),
               ),
           ],
