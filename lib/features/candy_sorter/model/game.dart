@@ -10,6 +10,7 @@ class Game {
     this.gameArea = const Size(0, 0),
   }) {
     _fillCandies();
+    stopwatch = Stopwatch()..start();
   }
 
   final int numberOfCandies;
@@ -17,6 +18,8 @@ class Game {
   final List<Color> colors;
   final List<Candy> candies = [];
   final Size gameArea;
+
+  late Stopwatch stopwatch;
 
   void removeCandy(Candy candy) {
     candies.remove(candy);

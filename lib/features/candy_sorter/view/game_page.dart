@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:candy_sorter/features/candy_sorter/model/model.dart';
 import 'package:candy_sorter/features/candy_sorter/view/bowl_area.dart';
 import 'package:candy_sorter/features/candy_sorter/view/candy_area.dart';
@@ -12,6 +14,7 @@ class GamePage extends StatefulWidget {
 
 class _GamePageState extends State<GamePage> {
   late Game game;
+  late Timer _timer;
 
   @override
   void didChangeDependencies() {
@@ -34,13 +37,16 @@ class _GamePageState extends State<GamePage> {
         MediaQuery.of(context).size.height / 2,
       ),
     );
-    setState(() {});
+    _timer = Timer.periodic(const Duration(seconds: 1), (_) => setState(() {}));
   }
 
   /// Call this when you put a candy into the bowl.
   void _onRemoveCandy(Candy candy) {
     setState(() {
       game.removeCandy(candy);
+      if (game.candies.isEmpty) {
+        _timer.cancel();
+      }
     });
   }
 
@@ -52,6 +58,10 @@ class _GamePageState extends State<GamePage> {
           ElevatedButton(
             onPressed: _createGame,
             child: const Text('New Game'),
+          ),
+          Text(
+            "Time elapsed: ${game.stopwatch.elapsed.toString().split('.')[0]}",
+            style: Theme.of(context).textTheme.headline5,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
