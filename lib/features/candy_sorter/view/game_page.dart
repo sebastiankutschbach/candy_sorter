@@ -39,8 +39,9 @@ class _GamePageState extends State<GamePage> {
 
   /// Call this when you put a candy into the bowl.
   void _onRemoveCandy(Candy candy) {
-    game.removeCandy(candy);
-    setState(() {});
+    setState(() {
+      game.removeCandy(candy);
+    });
   }
 
   @override
@@ -56,11 +57,11 @@ class _GamePageState extends State<GamePage> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text(
-                'Candies left: ??',
+                'Candies left: ${game.candies.length}',
                 style: Theme.of(context).textTheme.headline6,
               ),
               Text(
-                'Candies sorted: ??',
+                'Candies sorted: ${game.numberOfCandies - game.candies.length}',
                 style: Theme.of(context).textTheme.headline6,
               )
             ],
@@ -72,7 +73,7 @@ class _GamePageState extends State<GamePage> {
             ),
           ),
           Expanded(
-            child: BowlArea(game: game),
+            child: BowlArea(game: game, onRemoveCandy: _onRemoveCandy),
           ),
         ],
       ),

@@ -3,12 +3,11 @@ import 'package:candy_sorter/features/candy_sorter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 class BowlArea extends StatelessWidget {
-  const BowlArea({
-    Key? key,
-    required this.game,
-  }) : super(key: key);
+  const BowlArea({Key? key, required this.game, required this.onRemoveCandy})
+      : super(key: key);
 
   final Game game;
+  final Function(Candy candy) onRemoveCandy;
 
   @override
   Widget build(BuildContext context) {
@@ -17,16 +16,14 @@ class BowlArea extends StatelessWidget {
       runAlignment: WrapAlignment.spaceEvenly,
       children: [
         for (var i = 0; i < game.colors.length; i++)
-          DragTarget<Candy>(builder: (context, candies, dontKnow) {
-            for (var candy in candies) {
-              if (game.colors[i] == candy?.color) {
-                game.removeCandy(candy!);
-              }
-            }
-            return Bowl(
-              color: game.colors[i],
-            );
-          })
+          DragTarget<Candy>(
+              onAccept: (candy) => onRemoveCandy(candy),
+              onWillAccept: (candy) => game.colors[i] == candy?.color,
+              builder: (context, candies, dontKnow) {
+                return Bowl(
+                  color: game.colors[i],
+                );
+              })
       ],
     );
   }

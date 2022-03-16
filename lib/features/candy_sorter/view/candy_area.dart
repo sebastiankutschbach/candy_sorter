@@ -2,7 +2,7 @@ import 'package:candy_sorter/features/candy_sorter/model/model.dart';
 import 'package:candy_sorter/features/candy_sorter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
-class CandyArea extends StatefulWidget {
+class CandyArea extends StatelessWidget {
   const CandyArea({
     Key? key,
     required this.game,
@@ -11,17 +11,12 @@ class CandyArea extends StatefulWidget {
   final Game game;
 
   @override
-  State<CandyArea> createState() => _CandyAreaState();
-}
-
-class _CandyAreaState extends State<CandyArea> {
-  @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constrains) {
         return Stack(
           children: [
-            for (var candy in widget.game.candies)
+            for (var candy in game.candies)
               Positioned(
                 top: candy.top,
                 left: candy.left,
@@ -34,7 +29,6 @@ class _CandyAreaState extends State<CandyArea> {
                     candy: candy,
                   ),
                   childWhenDragging: Container(),
-                  onDragCompleted: () => setState(() {}),
                 ),
               ),
           ],
