@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:candy_sorter/features/candy_sorter/model/model.dart';
 import 'package:candy_sorter/features/candy_sorter/view/bowl_area.dart';
 import 'package:candy_sorter/features/candy_sorter/view/candy_area.dart';
+import 'package:candy_sorter/features/candy_sorter/view/settings_page.dart';
 import 'package:flutter/material.dart';
 
 class GamePage extends StatefulWidget {
@@ -55,9 +56,21 @@ class _GamePageState extends State<GamePage> {
     return Scaffold(
       body: Column(
         children: [
-          ElevatedButton(
-            onPressed: _createGame,
-            child: const Text('New Game'),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton(
+                onPressed: _createGame,
+                child: const Text('New Game'),
+              ),
+              ElevatedButton(
+                  onPressed: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => SettingsPage(),
+                        ),
+                      ),
+                  child: Text("Settings"))
+            ],
           ),
           Text(
             "Time elapsed: ${game.stopwatch.elapsed.toString().split('.')[0]}",
