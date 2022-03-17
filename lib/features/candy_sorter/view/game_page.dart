@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:candy_sorter/features/candy_sorter/model/model.dart';
 import 'package:candy_sorter/features/candy_sorter/view/bowl_area.dart';
@@ -96,7 +97,7 @@ class _GamePageState extends State<GamePage> {
                   style: Theme.of(context).textTheme.headline6,
                 ),
                 Text(
-                  'Candies sorted: ${game.numberOfCandies - game.candies.length}',
+                  'Candies sorted: ${max(0, game.numberOfCandies - game.candies.length)}',
                   style: Theme.of(context).textTheme.headline6,
                 )
               ],

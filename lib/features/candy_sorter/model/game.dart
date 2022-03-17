@@ -9,11 +9,11 @@ class Game {
     required this.numberOfCandies,
     this.gameArea = const Size(0, 0),
   }) {
-    _fillCandies();
+    _fillCandies(numberOfCandies);
     stopwatch = Stopwatch()..start();
   }
 
-  final int numberOfCandies;
+  int numberOfCandies;
 
   final List<Color> colors;
   final List<Candy> candies = [];
@@ -25,7 +25,7 @@ class Game {
     candies.remove(candy);
   }
 
-  void _fillCandies() {
+  void _fillCandies(int numberOfCandies) {
     final random = Random();
     for (var i = 0; i < numberOfCandies; i++) {
       int nextIndex = random.nextInt(colors.length);
@@ -37,5 +37,10 @@ class Game {
         ),
       );
     }
+  }
+
+  void addPenaltyCandies(int numberOfCandies) {
+    _fillCandies(numberOfCandies);
+    this.numberOfCandies += numberOfCandies;
   }
 }
